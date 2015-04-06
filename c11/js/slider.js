@@ -26,7 +26,19 @@ $('.slider').each(function() {              // For every slider
       slideLeft = '-100%';           // Sit the new slide to the left
       animateLeft = '100%';          // Animate the current group to the right
     }
-    // Position new slide to left (if less) or right (if more) of current
+    
+    // Setup for a fade frame slider
+		$slides.eq(newIndex).fadeTo(1000, 1.0);
+		$group.animate({left: animateLeft}, 0, function()
+		{
+			$slides.eq(currentIndex).fadeTo(1000, 0.0);
+			$slides.eq(newIndex).css( {left: 0} );
+			$group.css( {left: 0} );
+			currentIndex = newIndex;
+		});
+    
+    /***
+    // Position new slide to left (if less) or right (if more) of current for a horizontal frame slider
     $slides.eq(newIndex).css( {left: slideLeft, display: 'block'} );
 
     $group.animate( {left: animateLeft}, function() {    // Animate slides and
@@ -35,6 +47,7 @@ $('.slider').each(function() {              // For every slider
       $group.css( {left: 0} );               // Set position of group of slides
       currentIndex = newIndex;               // Set currentIndex to the new image
     });
+    ***/
   }
 
   function advance() {                     // Used to set 
